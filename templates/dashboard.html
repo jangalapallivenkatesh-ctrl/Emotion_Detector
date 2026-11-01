@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#dfe9f3,#ffffff);
+}
+header{
+    background:#1f7a8c;
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-weight:600;
+}
+.container{
+    display:flex;
+    padding:30px;
+    gap:30px;
+}
+.status-section{
+    flex:1;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+.video-section{
+    flex:2;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+.status-box{
+    margin-top:20px;
+    padding:30px;
+    background:#e3f2f5;
+    border-radius:10px;
+    text-align:center;
+}
+.emotion{
+    font-size:30px;
+    font-weight:700;
+    color:#e63946;
+}
+button{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#1f7a8c;
+    color:white;
+}
+button:hover{opacity:0.9;}
+img{
+    width:100%;
+    border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+Emotion Recognition In Customer Support Emotions Using Ai With Full Stack Web Development
+</header>
+
+<div class="container">
+
+<div class="status-section">
+<h3>Live Emotion Status</h3>
+<div class="status-box">
+<div id="emotionText" class="emotion">Stopped</div>
+</div>
+<br>
+<a href="/start"><button>Start</button></a>
+<a href="/stop"><button>Stop</button></a>
+<a href="/logout"><button>Return Home</button></a>
+</div>
+
+<div class="video-section">
+<img src="{{ url_for('video_feed') }}">
+</div>
+
+</div>
+
+<script>
+function updateEmotion(){
+    fetch('/get_emotion')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("emotionText").innerText = data.emotion;
+    });
+}
+setInterval(updateEmotion,2000);
+</script>
+
+</body>
+</html>
